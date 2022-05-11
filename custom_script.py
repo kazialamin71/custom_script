@@ -1055,18 +1055,20 @@ class custom_script(osv.osv):
     @api.multi
     def update_purchase_stock(self,context=None):
 
-        vals_parameter = [('date_invoice', '<=', '2022-02-25 07:53:42.652096'), ('type', '=', 'in_invoice'),('state','=','open')]
-        inv_obj = self.env['account.invoice'].search(vals_parameter)
+        # vals_parameter = [('date_invoice', '<=', '2022-02-25 07:53:42.652096'), ('type', '=', 'in_invoice'),('state','=','open')]
+        # inv_obj = self.env['account.invoice'].search(vals_parameter)
 
         update_list = []
 
-        inv_list = []
+        inv_list = [1 ,3 ,5 ,6 ,7 ,9 ,10 ,11 ,12 ,13 ,14 ,15 ,16 ,17 ,18 ,19 ,20 ,21 ,22 ,23 ,24 ,25 ,27 ,28 ,29 ,36 ,37 ,38 ,39 ,40 ,41 ,42 ,43 ,44 ,45 ,46 ,47 ,49 ,50 ,51 ,52 ,54 ,55 ,56]
+        proxy = self.pool['account.invoice']
 
+        source_dict = {}
 
-        for itms in inv_obj:
+        for itms in proxy.browse(self.env.cr, self.env.uid, inv_list, context=context):
 
             inv_list.append(itms.id)
-
+            source_dict[itms.id]=itms.origin
             for line_itm in itms.invoice_line:
                 update_list.append((line_itm.product_id.categ_id.property_stock_valuation_account_id.id,line_itm.id))
 
@@ -1076,12 +1078,27 @@ class custom_script(osv.osv):
             self.env.cr.execute(update_query,list_itms)
             self.env.cr.commit()
 
+        # for inv_id,pick_name in source_dict.iteritems():
+        #     import pdb
+        #     pdb.set_trace()
+        #     if inv_id not in [53,35,34,33,31,30,8,4]:
+        #
+        #         get_date_done_date = "select date(date_done) from stock_picking where name=%s limit 1"
+        #         self.env.cr.execute(get_date_done_date, ([pick_name]))
+        #         abc = self.env.cr.fetchall()
+        #         import pdb
+        #         pdb.set_trace()
+        #         if len(abc)>0:
+        #             import pdb
+        #             pdb.set_trace()
+        #             update_query_2 = "update account_invoice set date_invoice=%s where id=%s"
+        #             self.env.cr.execute(update_query_2, (abc[0],inv_id))
+        #             self.env.cr.commit()
 
-        proxy = self.pool['account.invoice']
         active_ids = context.get('active_ids', []) or []
 
         for record in proxy.browse(self.env.cr, self.env.uid, inv_list, context=context):
-            if record.state in ('open'):
+            if record.state in ('open') and record.id not in [53,35,34,33,31,30,8,4]:
                 record.signal_workflow('invoice_cancel')
                 record.action_cancel_draft()
                 record.signal_workflow('invoice_open')
