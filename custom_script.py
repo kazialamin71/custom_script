@@ -1052,92 +1052,41 @@ class custom_script(osv.osv):
 
         return True
 
-
-
     @api.multi
-    def update_purchase_stock(self, context=None):
-        vals_parameter = [('create_date', '<=', '2022-02-25 07:53:42.652096'),('state','=','confirmed')]
-        ir_obj = self.env['inventory.requisition'].search(vals_parameter)
+    def update_purchase_stock(self,context=None):
 
-        for stored_obj in ir_obj:
-            name = str(stored_obj.name)
-            # product_id=stored_obj.inventory_product_entry_line_ids.product_name.id
-            # product = self.env['product.product'].search([('id', '=', product_id)])
-            # unit_amount = product.price_get('standard_price')[product.id]
-            line_ids = []
+        vals_parameter = [('date_invoice', '<=', '2022-02-25 07:53:42.652096'), ('type', '=', 'in_invoice'),('state','=','open')]
+        inv_obj = self.env['account.invoice'].search(vals_parameter)
 
-            if context is None: context = {}
-            if context.get('period_id', False):
-                return context.get('period_id')
-            periods = self.pool.get('account.period').find(self.env.cr, self.env.uid, context=context)
-            period_id = periods and periods[0] or False
-            dates = stored_obj.date
-            dt = datetime.strptime(dates, '%Y-%m-%d')
-            if dt.month == 2:
-                period_id = 29
-            if dt.month == 1:
-                period_id = 28
-            if dt.month == 12:
-                period_id = 27
-            if dt.month == 11:
-                period_id = 26
-            if dt.month == 10:
-                period_id = 25
-            if dt.month == 9:
-                period_id = 24
-            if dt.month == 8:
-                period_id = 23
-            if dt.month == 7:
-                period_id = 22
-            if dt.month == 6:
-                period_id = 22
+        update_list = []
 
-            for cc_obj in stored_obj.inventory_requisition_line_ids:
-                stock_account = cc_obj.product_name.categ_id.property_stock_valuation_account_id.id
-                cogs_account = cc_obj.product_name.categ_id.property_account_expense_categ.id
-                cost_price = cc_obj.product_name.standard_price
-
-                line_ids.append((0, 0, {
-                    'analytic_account_id': False,
-                    'tax_code_id': False,
-                    'tax_amount': 0,
-                    'name': name,
-                    'currency_id': False,
-                    'account_id': stock_account,
-                    'credit': cost_price,
-                    'date_maturity': False,
-                    'debit': 0,
-                    'amount_currency': 0,
-
-                }))
+        inv_list = []
 
 
-                line_ids.append((0, 0, {
-                    'analytic_account_id': False,
-                    'tax_code_id': False,
-                    'tax_amount': 0,
-                    'name': name,
-                    'currency_id': False,
-                    'account_id': cogs_account,
-                    'credit': 0,
-                    'date_maturity': False,
-                    'debit': cost_price,
-                    'amount_currency': 0,
-                }))
+        for itms in inv_obj:
 
-            jv_entry = self.pool.get('account.move')
+            inv_list.append(itms.id)
 
-            j_vals = {'name': '/',
-                      'journal_id': 6,  ## Sales Journal
-                      'date': stored_obj.date,
-                      'period_id': period_id,
-                      'ref': name,
-                      'line_id': line_ids
-                      }
-            try:
-                saved_jv_id = jv_entry.create(self.env.cr, self.env.uid, j_vals, context=context)
-            except:
-                pass
+            for line_itm in itms.invoice_line:
+                update_list.append((line_itm.product_id.categ_id.property_stock_valuation_account_id.id,line_itm.id))
+
+
+        for list_itms in update_list:
+            update_query = "update account_invoice_line set account_id=%s where id=%s"
+            self.env.cr.execute(update_query,list_itms)
+            self.env.cr.commit()
+
+
+        proxy = self.pool['account.invoice']
+        active_ids = context.get('active_ids', []) or []
+
+        for record in proxy.browse(self.env.cr, self.env.uid, inv_list, context=context):
+            if record.state in ('open'):
+                record.signal_workflow('invoice_cancel')
+                record.action_cancel_draft()
+                record.signal_workflow('invoice_open')
+
+
 
         return True
 
