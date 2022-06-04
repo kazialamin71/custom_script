@@ -14,7 +14,11 @@ class custom_script(osv.osv):
 
         res = 1.00
         # ### Custom Funcition
-        vals_parameter = [('state', '=', 'activated'),('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
+        vals_parameter = [('state', '=', 'activated'), ('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2021-10-31 23:53:42.652096')]
+        vals_parameter = [('state', '=', 'activated'), ('create_date', '>=', '2021-10-31 23:54:38.048066'),('create_date', '<=', '2021-11-30 23:53:42.652096')]
+        vals_parameter = [('state', '=', 'activated'), ('create_date', '>=', '2021-11-30 23:54:38.048066'),('create_date', '<=', '2021-12-31 23:53:42.652096')]
+        vals_parameter = [('state', '=', 'activated'), ('create_date', '>=', '2021-12-31 23:54:38.048066'),('create_date', '<=', '2022-01-31 23:53:42.652096')]
+        vals_parameter = [('state', '=', 'activated'), ('create_date', '>=', '2021-01-31 23:54:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
         # vals_parameter.append(('date', '=', self.date))
         mr_obj = self.env['leih.admission'].search(vals_parameter)
         for stored_obj in mr_obj:
@@ -152,8 +156,14 @@ class custom_script(osv.osv):
     def bill_compute(self, context=None):
 
         res = 1.00
-        # ### Custom Funcition
-        vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
+        # ### Custom Funcition ('create_date', '<=', '2022-02-25 07:53:42.652096')
+        vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2021-10-31 23:53:42.652096')]
+        # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-10-31 23:54:38.048066'),('create_date', '<=', '2021-11-30 23:53:42.652096')]
+        # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-11-30 23:54:38.048066'),('create_date', '<=', '2021-12-31 23:53:42.652096')]
+        # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-12-31 23:54:38.048066'),('create_date', '<=', '2022-01-31 23:53:42.652096')]
+        # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-01-31 23:54:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
+
+
         # vals_parameter.append(('date', '=', self.date))
         mr_obj = self.env['bill.register'].search(vals_parameter)
         for stored_obj in mr_obj:
@@ -303,7 +313,11 @@ class custom_script(osv.osv):
 
         res = 1.00
         # ### Custom Funcition
-        vals_parameter = [('state', '=', 'confirmed'), ('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
+        vals_parameter = [('state', '=', 'confirmed'), ('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2021-10-31 23:53:42.652096')]
+        # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-10-31 23:54:38.048066'),('create_date', '<=', '2021-11-30 23:53:42.652096')]
+        # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-11-30 23:54:38.048066'),('create_date', '<=', '2021-12-31 23:53:42.652096')]
+        # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-12-31 23:54:38.048066'),('create_date', '<=', '2022-01-31 23:53:42.652096')]
+        # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-01-31 23:54:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
         # vals_parameter.append(('date', '=', self.date))
         mr_obj = self.env['optics.sale'].search(vals_parameter)
         for stored_obj in mr_obj:
@@ -442,7 +456,11 @@ class custom_script(osv.osv):
 
         res = 1.00
         # ### Custom Funcition
-        vals_parameter = [('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
+        vals_parameter = [('state','!=','cancelled'), ('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2021-10-31 23:53:42.652096')]
+        vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-10-31 23:54:38.048066'),('create_date', '<=', '2021-11-30 23:53:42.652096')]
+        vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-11-30 23:54:38.048066'),('create_date', '<=', '2021-12-31 23:53:42.652096')]
+        vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-12-31 23:54:38.048066'),('create_date', '<=', '2022-01-31 23:53:42.652096')]
+        vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-01-31 23:54:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
         # vals_parameter.append(('date', '=', self.date))
         mr_obj = self.env['opd.ticket'].search(vals_parameter)
         for stored_obj in mr_obj:
@@ -689,19 +707,25 @@ class custom_script(osv.osv):
     ###Check Bill Total and item total
     @api.multi
     def check_bill(self, context=None):
-        # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-07-01 04:46:56.269666'), ('create_date', '<=', '2021-07-31 13:18:37.700759')]
+        # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
+        # mr_obj = self.env['bill.register'].search(vals_parameter)
+        # bill_no=[]
+        # for bill_item in mr_obj:
+        #     item_ids = []
+        #     doctors_discount = 0
+        #     total = 0
+        #     for item in bill_item.bill_register_line_id:
+        #         total = total + item.total_amount
+        #     if total!=bill_item.grand_total:
+        #         bill_no.append(bill_item.name)
+        #for admission->
         vals_parameter = [('state', '=', 'activated'), ('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
-
-        # vals_parameter.append(('date', '=', self.date))
         mr_obj = self.env['leih.admission'].search(vals_parameter)
-        # import pdb
-        # pdb.set_trace()
         bill_no=[]
         for bill_item in mr_obj:
             item_ids = []
             doctors_discount = 0
             total = 0
-
             for item in bill_item.leih_admission_line_id:
                 total = total + item.total_amount
             if total!=bill_item.grand_total:
@@ -1078,22 +1102,20 @@ class custom_script(osv.osv):
             self.env.cr.execute(update_query,list_itms)
             self.env.cr.commit()
 
-        # for inv_id,pick_name in source_dict.iteritems():
-        #     import pdb
-        #     pdb.set_trace()
-        #     if inv_id not in [53,35,34,33,31,30,8,4]:
-        #
-        #         get_date_done_date = "select date(date_done) from stock_picking where name=%s limit 1"
-        #         self.env.cr.execute(get_date_done_date, ([pick_name]))
-        #         abc = self.env.cr.fetchall()
-        #         import pdb
-        #         pdb.set_trace()
-        #         if len(abc)>0:
-        #             import pdb
-        #             pdb.set_trace()
-        #             update_query_2 = "update account_invoice set date_invoice=%s where id=%s"
-        #             self.env.cr.execute(update_query_2, (abc[0],inv_id))
-        #             self.env.cr.commit()
+        for inv_id,pick_name in source_dict.iteritems():
+
+            if inv_id not in [53,35,34,33,31,30,8,4]:
+
+                get_date_done_date = "select date(date_done) from stock_picking where name=%s limit 1"
+                self.env.cr.execute(get_date_done_date, ([pick_name]))
+                abc = self.env.cr.fetchall()
+
+                if len(abc)>0:
+                    import pdb
+                    pdb.set_trace()
+                    update_query_2 = "update account_invoice set date_invoice=%s where id=%s"
+                    self.env.cr.execute(update_query_2, (abc[0],inv_id))
+                    self.env.cr.commit()
 
         active_ids = context.get('active_ids', []) or []
 
