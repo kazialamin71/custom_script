@@ -157,8 +157,8 @@ class custom_script(osv.osv):
 
         res = 1.00
         # ### Custom Funcition ('create_date', '<=', '2022-02-25 07:53:42.652096')
-        vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2021-10-31 23:53:42.652096')]
-        # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-10-31 23:54:38.048066'),('create_date', '<=', '2021-11-30 23:53:42.652096')]
+        # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2021-10-31 23:53:42.652096')]
+        vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-10-31 23:54:38.048066'),('create_date', '<=', '2021-11-30 23:53:42.652096')]
         # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-11-30 23:54:38.048066'),('create_date', '<=', '2021-12-31 23:53:42.652096')]
         # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-12-31 23:54:38.048066'),('create_date', '<=', '2022-01-31 23:53:42.652096')]
         # vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-01-31 23:54:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
@@ -180,6 +180,7 @@ class custom_script(osv.osv):
                 return context.get('period_id')
             periods = self.pool.get('account.period').find(self.env.cr, self.env.uid, context=context)
             period_id = periods and periods[0] or False
+            has_been_paid = stored_obj.paid
             dates=stored_obj.date
             dt = datetime.strptime(dates, "%Y-%m-%d %H:%M:%S")
             if dt.month==2:
@@ -457,10 +458,10 @@ class custom_script(osv.osv):
         res = 1.00
         # ### Custom Funcition
         vals_parameter = [('state','!=','cancelled'), ('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2021-10-31 23:53:42.652096')]
-        vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-10-31 23:54:38.048066'),('create_date', '<=', '2021-11-30 23:53:42.652096')]
-        vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-11-30 23:54:38.048066'),('create_date', '<=', '2021-12-31 23:53:42.652096')]
-        vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-12-31 23:54:38.048066'),('create_date', '<=', '2022-01-31 23:53:42.652096')]
-        vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-01-31 23:54:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
+        # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-10-31 23:54:38.048066'),('create_date', '<=', '2021-11-30 23:53:42.652096')]
+        # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-11-30 23:54:38.048066'),('create_date', '<=', '2021-12-31 23:53:42.652096')]
+        # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-12-31 23:54:38.048066'),('create_date', '<=', '2022-01-31 23:53:42.652096')]
+        # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-01-31 23:54:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
         # vals_parameter.append(('date', '=', self.date))
         mr_obj = self.env['opd.ticket'].search(vals_parameter)
         for stored_obj in mr_obj:
@@ -563,7 +564,6 @@ class custom_script(osv.osv):
             if saved_jv_id > 0:
                 journal_id = saved_jv_id
                 try:
-
                     jv_entry.button_validate(self.env.cr, self.env.uid, [saved_jv_id], context)
                 except:
                     import pdb
