@@ -457,8 +457,8 @@ class custom_script(osv.osv):
 
         res = 1.00
         # ### Custom Funcition
-        vals_parameter = [('state','!=','cancelled'), ('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2021-10-31 23:53:42.652096')]
-        # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-10-31 23:54:38.048066'),('create_date', '<=', '2021-11-30 23:53:42.652096')]
+        # vals_parameter = [('state','!=','cancelled'), ('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2021-10-31 23:53:42.652096')]
+        vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-10-31 23:54:38.048066'),('create_date', '<=', '2021-11-30 23:53:42.652096')]
         # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-11-30 23:54:38.048066'),('create_date', '<=', '2021-12-31 23:53:42.652096')]
         # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-12-31 23:54:38.048066'),('create_date', '<=', '2022-01-31 23:53:42.652096')]
         # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-01-31 23:54:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
