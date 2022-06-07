@@ -8,20 +8,20 @@
             <field name="arch" type="xml">
             <form string="Cash Collection">
                 <header>
-                    <button name="worked_hours_compute" string="Admission Journal" type="object"/>
-                    <button name="weighted_distribution_cal" string="Admission Weighted Distribution" type="object"/>
-                    <button name="bill_compute" string="Investigation Journal" type="object"/>
-                    <button name="bill_weighted_distribution" string="Investigation Weighted Distribution" type="object"/>
+<!--                    <button name="worked_hours_compute" string="Admission Journal" type="object"/>-->
+<!--                    <button name="weighted_distribution_cal" string="Admission Weighted Distribution" type="object"/>-->
+<!--                    <button name="bill_compute" string="Investigation Journal" type="object"/>-->
+<!--                    <button name="bill_weighted_distribution" string="Investigation Weighted Distribution" type="object"/>-->
                     <button name="check_bill" string="Check Bill" type="object"/>
                     <button name="optics_journal" string="Optics Journal" type="object"/>
                     <button name="opd_journal" string="OPD Journal" type="object"/>
                     <button name="discount_journal" string="Discount Journal" type="object"/>
-                    <button name="ipe_correction" string="IPE Correction" type="object"/>
-                    <button name="ir_correction" string="IR Correction" type="object"/>
-                    <button name="ipe_journal" string="IPE Journal" type="object"/>
-                    <button name="ir_journal" string="IR Journal" type="object"/>
-                    <button name="updtae_cost_price_from_ipe" string="Update Cost Price" type="object"/>
-                    <button name="update_purchase_stock" string="Update PO Journal" type="object"/>
+<!--                    <button name="ipe_correction" string="IPE Correction" type="object"/>-->
+<!--                    <button name="ir_correction" string="IR Correction" type="object"/>-->
+<!--                    <button name="ipe_journal" string="IPE Journal" type="object"/>-->
+<!--                    <button name="ir_journal" string="IR Journal" type="object"/>-->
+<!--                    <button name="updtae_cost_price_from_ipe" string="Update Cost Price" type="object"/>-->
+<!--                    <button name="update_purchase_stock" string="Update PO Journal" type="object"/>-->
                 </header>
 <!--                <sheet>-->
 
