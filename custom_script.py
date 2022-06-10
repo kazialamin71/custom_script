@@ -314,7 +314,7 @@ class custom_script(osv.osv):
         # ### Custom Funcition
         # vals_parameter = [('state', '=', 'confirmed'), ('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2021-11-30 23:53:42.652096')]
         vals_parameter = [('state', '=', 'confirmed'),('create_date', '>=', '2021-11-30 23:54:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
-    
+
         # vals_parameter.append(('date', '=', self.date))
         mr_obj = self.env['optics.sale'].search(vals_parameter)
         for stored_obj in mr_obj:
@@ -454,8 +454,8 @@ class custom_script(osv.osv):
         # vals_parameter = [('state','!=','cancelled'), ('create_date', '>=', '2021-09-30 13:18:38.048066'),('create_date', '<=', '2021-10-31 23:53:42.652096')]
         # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-10-31 23:54:38.048066'),('create_date', '<=', '2021-11-30 23:53:42.652096')]
         # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-11-30 23:54:38.048066'),('create_date', '<=', '2021-12-31 23:53:42.652096')]
-        vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-12-31 23:54:38.048066'),('create_date', '<=', '2022-01-31 23:53:42.652096')]
-        # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-01-31 23:54:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
+        # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-12-31 23:54:38.048066'),('create_date', '<=', '2022-01-31 23:53:42.652096')]
+        vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-01-31 23:54:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
         # vals_parameter.append(('date', '=', self.date))
         mr_obj = self.env['opd.ticket'].search(vals_parameter)
         for stored_obj in mr_obj:
