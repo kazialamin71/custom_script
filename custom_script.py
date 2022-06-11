@@ -455,7 +455,7 @@ class custom_script(osv.osv):
         # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-10-31 23:54:38.048066'),('create_date', '<=', '2021-11-30 23:53:42.652096')]
         # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-11-30 23:54:38.048066'),('create_date', '<=', '2021-12-31 23:53:42.652096')]
         # vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-12-31 23:54:38.048066'),('create_date', '<=', '2022-01-31 23:53:42.652096')]
-        vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2021-01-31 23:54:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
+        vals_parameter = [('state','!=','cancelled'),('create_date', '>=', '2022-01-31 23:54:38.048066'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
         # vals_parameter.append(('date', '=', self.date))
         mr_obj = self.env['opd.ticket'].search(vals_parameter)
         for stored_obj in mr_obj:
@@ -572,6 +572,19 @@ class custom_script(osv.osv):
         # Er journal diebn lopp fele
         #
         return res
+
+
+    @api.multi
+    def delete_journal(self,context=None):
+        vals_parameter=[('create_date','>=','2022-06-10 04:00:00.048066'),('create_date','<=','2022-06-11 01:30:00.048066'),('ref','like','OPD'),('date','<','2022-02-01')]
+        opd_obj=self.env['account.move'].search(vals_parameter)
+        xx = opd_obj.button_cancel()
+        opd_obj.unlink()
+
+        return 'X'
+
+
+
 
 
     ###OPD Journal End
