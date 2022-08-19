@@ -1129,8 +1129,8 @@ class custom_script(osv.osv):
 
     @api.multi
     def pos_stock_journal(self, context=None):
-        vals_parameter = [('create_date', '<=', '2022-02-25 07:53:42.652096')]
-        # vals_parameter = [('create_date', '<=', '2021-12-31 23:59:42.652096')]
+        # vals_parameter = [('create_date', '<=', '2022-02-25 07:53:42.652096')]
+        vals_parameter = [('create_date', '<=', '2021-10-31 23:59:42.652096')]
         # vals_parameter = [('create_date', '>=', '2021-08-10 23:59:42.652096'),('create_date', '<=', '2021-08-12 23:59:42.652096')]
         pos_order = self.env['pos.order.line'].search(vals_parameter)
 
