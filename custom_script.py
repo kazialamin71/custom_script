@@ -1129,93 +1129,95 @@ class custom_script(osv.osv):
 
     @api.multi
     def pos_stock_journal(self, context=None):
-        # vals_parameter = [('create_date', '<=', '2022-02-25 07:53:42.652096')]
-        vals_parameter = [('create_date', '<=', '2021-12-31 23:59:42.652096')]
+        vals_parameter = [('create_date', '<=', '2022-02-25 07:53:42.652096')]
+        # vals_parameter = [('create_date', '<=', '2021-12-31 23:59:42.652096')]
+        # vals_parameter = [('create_date', '>=', '2021-08-10 23:59:42.652096'),('create_date', '<=', '2021-08-12 23:59:42.652096')]
         pos_order = self.env['pos.order.line'].search(vals_parameter)
 
         for stored_obj in pos_order:
             name = str(stored_obj.name)
             qty=stored_obj.qty
-            standard_price=stored_obj.product_id.standard_price
-            total_standard_price=standard_price*qty
+            if qty>0:
+                standard_price=stored_obj.product_id.standard_price
+                total_standard_price=standard_price*qty
 
-            # product_id=stored_obj.inventory_product_entry_line_ids.product_name.id
-            # product = self.env['product.product'].search([('id', '=', product_id)])
-            # unit_amount = product.price_get('standard_price')[product.id]
-            line_ids = []
+                # product_id=stored_obj.inventory_product_entry_line_ids.product_name.id
+                # product = self.env['product.product'].search([('id', '=', product_id)])
+                # unit_amount = product.price_get('standard_price')[product.id]
+                line_ids = []
 
-            if context is None: context = {}
-            if context.get('period_id', False):
-                return context.get('period_id')
-            periods = self.pool.get('account.period').find(self.env.cr, self.env.uid, context=context)
-            period_id = periods and periods[0] or False
-            dates = stored_obj.create_date
-            dt=datetime.strptime(dates, '%Y-%m-%d %H:%M:%S').date()
-            if dt.month == 2:
-                period_id = 29
-            if dt.month == 1:
-                period_id = 28
-            if dt.month == 12:
-                period_id = 27
-            if dt.month == 11:
-                period_id = 26
-            if dt.month == 10:
-                period_id = 25
-            if dt.month == 9:
-                period_id = 24
-            if dt.month == 8:
-                period_id = 23
-            if dt.month == 7:
-                period_id = 22
-            if dt.month == 6:
-                period_id = 22
+                if context is None: context = {}
+                if context.get('period_id', False):
+                    return context.get('period_id')
+                periods = self.pool.get('account.period').find(self.env.cr, self.env.uid, context=context)
+                period_id = periods and periods[0] or False
+                dates = stored_obj.create_date
+                dt=datetime.strptime(dates, '%Y-%m-%d %H:%M:%S').date()
+                if dt.month == 2:
+                    period_id = 29
+                if dt.month == 1:
+                    period_id = 28
+                if dt.month == 12:
+                    period_id = 27
+                if dt.month == 11:
+                    period_id = 26
+                if dt.month == 10:
+                    period_id = 25
+                if dt.month == 9:
+                    period_id = 24
+                if dt.month == 8:
+                    period_id = 23
+                if dt.month == 7:
+                    period_id = 22
+                if dt.month == 6:
+                    period_id = 22
 
 
-            line_ids.append((0, 0, {
-                'analytic_account_id': False,
-                'tax_code_id': False,
-                'tax_amount': 0,
-                'name': name,
-                'currency_id': False,
-                'account_id': 274,
-                'credit': total_standard_price,
-                'date_maturity': False,
-                'debit': 0,
-                'amount_currency': 0,
+                line_ids.append((0, 0, {
+                    'analytic_account_id': False,
+                    'tax_code_id': False,
+                    'tax_amount': 0,
+                    'name': name,
+                    'currency_id': False,
+                    'account_id': 274,
+                    'credit': total_standard_price,
+                    'date_maturity': False,
+                    'debit': 0,
+                    'amount_currency': 0,
 
-            }))
+                }))
 
-            line_ids.append((0, 0, {
-                'analytic_account_id': False,
-                'tax_code_id': False,
-                'tax_amount': 0,
-                'name': name,
-                'currency_id': False,
-                'account_id': 6325,
-                'credit': 0,
-                'date_maturity': False,
-                'debit': total_standard_price,
-                'amount_currency': 0,
-            }))
+                line_ids.append((0, 0, {
+                    'analytic_account_id': False,
+                    'tax_code_id': False,
+                    'tax_amount': 0,
+                    'name': name,
+                    'currency_id': False,
+                    'account_id': 6325,
+                    'credit': 0,
+                    'date_maturity': False,
+                    'debit': total_standard_price,
+                    'amount_currency': 0,
+                }))
 
-            jv_entry = self.pool.get('account.move')
+                jv_entry = self.pool.get('account.move')
 
-            j_vals = {'name': '/',
-                      'journal_id': 1,  ## Sales Journal
-                      'date': dt,
-                      'period_id': period_id,
-                      'ref': name,
-                      'line_id': line_ids
-                      }
+                j_vals = {'name': '/',
+                          'journal_id': 1,  ## Sales Journal
+                          'date': dt,
+                          'period_id': period_id,
+                          'ref': name,
+                          'line_id': line_ids
+                          }
 
-            saved_jv_id = jv_entry.create(self.env.cr, self.env.uid, j_vals, context=context)
-            if saved_jv_id > 0:
-                journal_id = saved_jv_id
-                try:
-                    jv_entry.button_validate(self.env.cr, self.env.uid, [saved_jv_id], context)
-                except:
-                    import pdb
-                    pdb.set_trace()
+                saved_jv_id = jv_entry.create(self.env.cr, self.env.uid, j_vals, context=context)
+                if saved_jv_id > 0:
+                    journal_id = saved_jv_id
+                    try:
+                        jv_entry.button_validate(self.env.cr, self.env.uid, [saved_jv_id], context)
+                    except:
+                        import pdb
+                        pdb.set_trace()
 
 
         return True
