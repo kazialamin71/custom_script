@@ -1225,7 +1225,7 @@ class custom_script(osv.osv):
     @api.multi
     def optics_stock_journal(self, context=None):
         # vals_parameter = [('create_date', '<=', '2022-02-25 07:53:42.652096')]
-        vals_parameter = [('create_date', '<=', '2021-07-12 07:53:42.652096')]
+        vals_parameter = [('create_date', '>=', '2021-07-12 07:53:43.652096'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
         opt_order = self.env['optics.sale'].search(vals_parameter)
 
         for stored_obj in opt_order:
