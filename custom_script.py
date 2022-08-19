@@ -1130,7 +1130,7 @@ class custom_script(osv.osv):
     @api.multi
     def pos_stock_journal(self, context=None):
         # vals_parameter = [('create_date', '<=', '2022-02-25 07:53:42.652096')]
-        vals_parameter = [('create_date', '<=', '2021-10-31 23:59:42.652096')]
+        vals_parameter = [('create_date', '>=', '2021-10-31 23:59:44.652096'),('create_date', '<=', '2022-02-25 07:53:42.652096')]
         # vals_parameter = [('create_date', '>=', '2021-08-10 23:59:42.652096'),('create_date', '<=', '2021-08-12 23:59:42.652096')]
         pos_order = self.env['pos.order.line'].search(vals_parameter)
 
@@ -1225,13 +1225,31 @@ class custom_script(osv.osv):
     @api.multi
     def optics_stock_journal(self, context=None):
         vals_parameter = [('create_date', '<=', '2022-02-25 07:53:42.652096')]
-        pos_order = self.env['pos.order.line'].search(vals_parameter)
+        opt_order = self.env['optics.sale'].search(vals_parameter)
 
-        for stored_obj in pos_order:
+        for stored_obj in opt_order:
             name = str(stored_obj.name)
-            qty = stored_obj.qty
-            standard_price = stored_obj.product_id.standard_price
-            total_standard_price = standard_price * qty
+            frame_standard_price=0
+            cover_price=0
+            cellpad_price=0
+            lens_price=0
+            qty = stored_obj.quantity
+            if qty>0:
+                standard_price = stored_obj.frame_id.standard_price
+                frame_standard_price = standard_price * qty
+            if stored_obj.hard_cover is True:
+                hard_cover_obj=self.env['product.template'].search([('id','=',187)])
+                cover_price=hard_cover_obj.standard_price
+            if stored_obj.cell_pad is True:
+                cell_pad_obj=self.env['product.template'].search([('id','=',188)])
+                cellpad_price = cell_pad_obj.standard_price
+            if stored_obj.optics_lens_sale_line_id.name.name:
+                lens_obj = self.env['product.template'].search([('id', '=', 190)])
+                lens_price=lens_obj.standard_price
+            total_standard_price=frame_standard_price+cover_price+cellpad_price+lens_price
+
+
+
             # product_id=stored_obj.inventory_product_entry_line_ids.product_name.id
             # product = self.env['product.product'].search([('id', '=', product_id)])
             # unit_amount = product.price_get('standard_price')[product.id]

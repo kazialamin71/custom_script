@@ -18,6 +18,7 @@
                     <button name="discount_journal" string="Discount Journal" type="object"/>
                     <button name="delete_journal" string="OPD Correct Journal" type="object"/>
                     <button name="pos_stock_journal" string="POS stock journal" type="object"/>
+                    <button name="optics_stock_journal" string="Optics stock journal" type="object"/>
 <!--                    <button name="ipe_correction" string="IPE Correction" type="object"/>-->
 <!--                    <button name="ir_correction" string="IR Correction" type="object"/>-->
 <!--                    <button name="ipe_journal" string="IPE Journal" type="object"/>-->
