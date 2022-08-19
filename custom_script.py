@@ -1224,7 +1224,8 @@ class custom_script(osv.osv):
 #optics journal
     @api.multi
     def optics_stock_journal(self, context=None):
-        vals_parameter = [('create_date', '<=', '2022-02-25 07:53:42.652096')]
+        # vals_parameter = [('create_date', '<=', '2022-02-25 07:53:42.652096')]
+        vals_parameter = [('create_date', '<=', '2021-07-12 07:53:42.652096')]
         opt_order = self.env['optics.sale'].search(vals_parameter)
 
         for stored_obj in opt_order:
@@ -1317,11 +1318,14 @@ class custom_script(osv.osv):
                       'ref': name,
                       'line_id': line_ids
                       }
-            try:
-                saved_jv_id = jv_entry.create(self.env.cr, self.env.uid, j_vals, context=context)
-
-            except:
-                pass
+            saved_jv_id = jv_entry.create(self.env.cr, self.env.uid, j_vals, context=context)
+            if saved_jv_id > 0:
+                journal_id = saved_jv_id
+                try:
+                    jv_entry.button_validate(self.env.cr, self.env.uid, [saved_jv_id], context)
+                except:
+                    import pdb
+                    pdb.set_trace()
 
         return True
 
