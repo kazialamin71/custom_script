@@ -12,13 +12,13 @@
 <!--                    <button name="weighted_distribution_cal" string="Admission Weighted Distribution" type="object"/>-->
 <!--                    <button name="bill_compute" string="Investigation Journal" type="object"/>-->
 <!--                    <button name="bill_weighted_distribution" string="Investigation Weighted Distribution" type="object"/>-->
-                    <button name="check_bill" string="Check Bill" type="object"/>
-                    <button name="optics_journal" string="Optics Journal" type="object"/>
-                    <button name="opd_journal" string="OPD Journal" type="object"/>
-                    <button name="discount_journal" string="Discount Journal" type="object"/>
-                    <button name="delete_journal" string="OPD Correct Journal" type="object"/>
+<!--                    <button name="check_bill" string="Check Bill" type="object"/>-->
+                    <button name="optics_unlink_journal" string="Optics Reverse Journal" type="object"/>
+<!--                    <button name="opd_journal" string="OPD Journal" type="object"/>-->
+<!--                    <button name="discount_journal" string="Discount Journal" type="object"/>-->
+<!--                    <button name="delete_journal" string="OPD Correct Journal" type="object"/>-->
 <!--                    <button name="pos_stock_journal" string="POS stock journal" type="object"/>-->
-                    <button name="optics_stock_journal" string="Optics stock journal" type="object"/>
+<!--                    <button name="optics_stock_journal" string="Optics stock journal" type="object"/>-->
 <!--                    <button name="ipe_correction" string="IPE Correction" type="object"/>-->
 <!--                    <button name="ir_correction" string="IR Correction" type="object"/>-->
 <!--                    <button name="ipe_journal" string="IPE Journal" type="object"/>-->
