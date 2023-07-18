@@ -13,7 +13,7 @@
 <!--                    <button name="bill_compute" string="Investigation Journal" type="object"/>-->
 <!--                    <button name="bill_weighted_distribution" string="Investigation Weighted Distribution" type="object"/>-->
 <!--                    <button name="check_bill" string="Check Bill" type="object"/>-->
-                    <button name="optics_unlink_journal" string="Optics Reverse Journal" type="object"/>
+<!--                    <button name="optics_unlink_journal" string="Optics Reverse Journal" type="object"/>-->
 <!--                    <button name="opd_journal" string="OPD Journal" type="object"/>-->
 <!--                    <button name="discount_journal" string="Discount Journal" type="object"/>-->
 <!--                    <button name="delete_journal" string="OPD Correct Journal" type="object"/>-->
@@ -23,7 +23,7 @@
 <!--                    <button name="ir_correction" string="IR Correction" type="object"/>-->
 <!--                    <button name="ipe_journal" string="IPE Journal" type="object"/>-->
 <!--                    <button name="ir_journal" string="IR Journal" type="object"/>-->
-<!--                    <button name="updtae_cost_price_from_ipe" string="Update Cost Price" type="object"/>-->
+                        <button name="updtae_cost_price_from_ipe" string="Update Cost Price" type="object"/>
 <!--                    <button name="update_purchase_stock" string="Update PO Journal" type="object"/>-->
                 </header>
 <!--                <sheet>-->
