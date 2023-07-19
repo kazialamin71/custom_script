@@ -62,7 +62,7 @@
 
 
 
-        <record id="custom_script" model="ir.actions.act_window">
+        <record id="custom_script_action" model="ir.actions.act_window">
             <field name="name">Custom Script</field>
             <field name="res_model">custom.script</field>
             <field name="type">ir.actions.act_window</field>
@@ -83,7 +83,7 @@
             </tree>
             </field>
         </record>
-<!--        <menuitem name="custom script" id="custom_script" parent="leih.leih_billing_menu" action="custom_script"/>-->
+	<menuitem name="custom script" id="custom_script_ipe" parent="leih.leih_billing_menu" action="custom_script_action"/>
 
 <!--        <menuitem name="Doctors" id="leih_doctors_menu" parent="leih_menu"/>-->
 <!--        <menuitem name="Cash Collection" id="cash_collection_menu_mainform" parent="leih_group_menu" action="cash_collection_action"/>-->

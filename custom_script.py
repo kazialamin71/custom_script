@@ -952,7 +952,6 @@ class custom_script(osv.osv):
         vals_parameter = [('standard_price', '=', 0.00)]
         p_obj = self.env['product.product'].search(vals_parameter)
         get_all_ids = [itm.id for itm in p_obj]
-
         for id in get_all_ids:
             query = "select inventory_product_entry_line.unit_price from inventory_product_entry_line,inventory_product_entry " \
                     "where inventory_product_entry_line.inventory_product_entry_id=inventory_product_entry.id and " \
@@ -969,7 +968,7 @@ class custom_script(osv.osv):
             else:
                 query = "select purchase_order_line.price_unit from purchase_order_line,purchase_order " \
                         "where purchase_order_line.order_id=purchase_order.id and " \
-                        "purchase_order.state='approved' and purchase_order_line.product_id=%s " \
+                        "purchase_order.state in('approved','done') and purchase_order_line.product_id=%s " \
                         "order by purchase_order_line.id desc limit 1"
 
                 self.env.cr.execute(query, ([id]))
